@@ -3,17 +3,20 @@ import Message from "../models/message.model.js"
 import User from "../models/user.model.js"
 
 
-//getting the users for the side bar except the loggedin user 
-export const getUserforSidebar=async(req,res)=>{
-    try{
-        const loggedInUser=req.user._id
-        filteredUser=await User.find({_id:{$ne:loggedInUser}}).select("-password")
-        res.status(200).json(filteredUser)
-    }catch(error){
-        console.log("Error in finding the filtered user",error)
-        res.status(500).json({message:"Internal server Error"})
+export const getUserforSidebar = async (req, res) => {
+    try {
+        const loggedInUser = req.user._id;
+        const user = await User.findById(loggedInUser).populate("friends", "-password");
+        
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+        res.status(200).json(user.friends);
+    } catch (error) {
+        console.error("Error in finding the filtered user:", error);
+        res.status(500).json({ message: "Internal server error" });
     }
-}
+};
 
 
 export const getMessage=async(req,res)=>{
@@ -41,6 +44,7 @@ export const sendMessage=async(req,res)=>{
         const {text,image}=req.body;
         const { id:recieverId }=req.params
         const senderId=req.user._id
+        let imageUrl=null;
 
         if(image){
             const uploadResonse=await cloudinary.uploader.upload(image)

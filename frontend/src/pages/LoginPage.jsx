@@ -29,7 +29,7 @@ const{isLoggingIn,login}=useAuthStore()
 const handleSubmit=(e)=>{
   e.preventDefault()
   login(data)
-  console.log(authUser)
+  
  // validateForm()
 }
 
@@ -72,7 +72,7 @@ const handleSubmit=(e)=>{
           <button type='submit' className="btn text-black w-full p-2 font-bold bg-teal-500 rounded-md  mt-2" disabled={isLoggingIn}>
             {isLoggingIn ?(
               <>
-              <Loader2 className="w-5 h-5 animate-spin ml-35" />
+              <Loader2 className="w-5 h-5 animate-spin ml-30" />
               </>
             ):(
               "Login"

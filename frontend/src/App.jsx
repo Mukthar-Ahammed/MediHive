@@ -21,14 +21,14 @@ function App() {
 
   if(isChecking && !authUser)
     return(
-  <div className='flex items-center justify-center h-screen'>
+  <div className='flex items-center justify-center h-screen overflow-x-hidden '>
     <Loader className='size-10 animate-spin'/>
 
   </div>
 
   )
   return (
-    <div >
+    <div data-theme="light">
       <NavBar/>
       
       <Routes>

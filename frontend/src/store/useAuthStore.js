@@ -4,16 +4,16 @@ import toast from 'react-hot-toast';
 import { data } from 'react-router-dom';
 
 export const useAuthStore=create((set)=>({
-    authUser:null,
+    
     isSigningUp:false,
     isLoggingIn:false,
     isUpdatingProfile:false,
     isChecking:true,
+    unAuthUser:null,
 
     checkAuth: async()=>{
         try {
-            const res = await axiosInstance.get("/api/auth/check");
-
+        const res = await axiosInstance.get("/api/auth/check");
             set({authUser:res.data})
         } catch (error) {
             console.log("Error in check auth",error)
@@ -25,8 +25,7 @@ export const useAuthStore=create((set)=>({
     signup: async(data)=>{
         set({isSigningUp:true})
         try {
-
-            
+        
            const res= await axiosInstance.post("/api/auth/Signup",data)
            toast.success("Account created successfully")
            set({authUser:res.data})
@@ -50,6 +49,8 @@ export const useAuthStore=create((set)=>({
             set({isLoggingIn:false})
         }
     },
+
+
     logout:async()=>{
         try {
             const res=await axiosInstance.post("/api/auth/Logout")
