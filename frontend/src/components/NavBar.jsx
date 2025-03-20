@@ -6,7 +6,7 @@ import { House,User,LogOut } from 'lucide-react'
 function NavBar() {
   const {authUser,logout}=useAuthStore()
   return (
-    <div className='w-full h-12 text-white font-bold pt-3 flex  flex-row bg-white'>
+    <div className='w-full h-12 text-white font-bold pt-3 flex   flex-row bg-white'>
     {/*Home Icon*/}
       <Link to={"/"}>
       <div className='ml-6 '><House color="#000000"/></div>
@@ -15,7 +15,7 @@ function NavBar() {
       <>
       <Link to={"/Profile"}>
         <div className='absolute right-9'>
-        <User color="#000000" />
+        <User color="#000000" />                                     
         </div>
       </Link>
       <div className='absolute right-22 '>

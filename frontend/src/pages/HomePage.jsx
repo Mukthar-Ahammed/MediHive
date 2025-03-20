@@ -13,13 +13,13 @@ function HomePage() {
               <span className='text-black'>Welcome to</span>
               <span className='text-teal-500 ml-10'>Medihive</span>
             </h1>
-            <p className=' absolute top-60 font-mono font-semibold w-180 text-center'>A platform for medical students to <span className='text-green-500'>chat</span> , <span className='text-teal-500'>log rotations</span>, <span className='text-blue-500'>search medicines</span>, and use <span className='text-red-600 mr-2'>AI</span>for disease identification.</p>
+            <p className=' absolute top-60 font-mono font-semibold w-180 text-center'>A platform for medical students to <span className='text-gray-800'>chat</span> , <span className='text-teal-500'>log rotations</span>, <span className='text-blue-500'>search medicines</span>, and use <span className='text-red-600 mr-2'>AI</span>for disease identification.</p>
         </div>
      </div>
      <div className='w-screen h-100 font-mono flex flex-row p-30 gap-35'>
       <div className='w-90 h-70  bg-black/6 backdrop-blur-lg shadow-lg hover:bg-black/10 transition duration-600 ease-in flex items-center justify-center'>
         <Link to={"/chat"}>
-          <MessageSquare className='w-20 h-20 text-teal-500 '/>
+          <MessageSquare className='w-20 h-20 text-gray-800 '/>
         </Link>
        </div>
        <div className='w-90 h-70  bg-black/6 backdrop-blur-lg shadow-lg hover:bg-black/10 transition duration-600 ease-in flex items-center justify-center'>

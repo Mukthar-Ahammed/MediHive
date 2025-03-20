@@ -5,7 +5,7 @@ import { getMessage, getUserforSidebar, sendMessage } from '../controllers/messa
 const router=express.Router()
 
 router.get('/users',protectRoute,getUserforSidebar)
-router.get('/id:',protectRoute,getMessage)
-router.post('/send',protectRoute,sendMessage)
+router.get('/:id',protectRoute,getMessage)
+router.post('/send/:id',protectRoute,sendMessage)
 
 export default router

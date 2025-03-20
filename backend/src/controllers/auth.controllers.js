@@ -110,3 +110,51 @@ export const checkAuth = (req, res) => {
         res.status(500).json({ message: "Internal server error" });
     }
 };
+
+//to get all the user for search bar 
+
+export const SearchUser= async (req,res)=>{
+    const {email}=req.body
+    try {
+        const SearchedUser=await User.findOne({email})
+        if(SearchedUser)
+            return res.json(SearchedUser)
+        else {
+            return res.status(404).json({ message: "User not found" });
+        }
+    } catch (error) {
+        res.status(500).json({error:"Failed to fetch user"})
+    }
+}
+
+//adding friends 
+
+export const AddFriends=async(req,res)=>{
+    const {userId,friendId}=req.body
+    try {
+        if(!userId||!friendId){
+            return res.status(400).json({ message: "Missing userId or friendId" });
+        }
+        const currentUser=await User.findById(userId)
+        const friend=await User.findById(friendId)
+
+        if(!currentUser||!friend){
+            return res.status(400).json({message:"User not found"})
+        }
+
+        if (currentUser.friends.includes(friendId)) {
+            return res.status(400).json({ message: "Already friends" });
+          }
+
+        currentUser.friends.push(friendId)
+        friend.friends.push(userId)
+
+        await currentUser.save()
+        await friend.save()
+
+        res.status(200).json({message:"User added successfully"})
+
+    } catch (error) {
+        res.status(500).json({ message: "Server error", error });
+    }
+}
