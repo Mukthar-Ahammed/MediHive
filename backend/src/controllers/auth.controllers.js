@@ -132,6 +132,9 @@ export const SearchUser= async (req,res)=>{
 export const AddFriends=async(req,res)=>{
     const {userId,friendId}=req.body
     try {
+        if(userId==friendId){
+            return res.status(400).json({message:"you cannot add yourself as friend"})
+        }
         if(!userId||!friendId){
             return res.status(400).json({ message: "Missing userId or friendId" });
         }
