@@ -28,7 +28,7 @@ function SearchUser() {
           onChange={(e) => setSearchData(e.target.value)}
           onKeyDown={Handlekey}
         />
-        {/* Search Button */}
+        
         <button
           className="absolute  top-1/2 right-0 transform -translate-y-1/2 bg-gray-800 shadow-lg w-12 h-12 rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-150"
           onClick={() => {
@@ -42,7 +42,7 @@ function SearchUser() {
       
       {unAuthUser && (
         <div className="w-full bg-gray-800 text-white rounded-lg shadow-md mt-3 p-3 flex items-center gap-3">
-          {/* User Avatar */}
+          
           <img
             src={unAuthUser?.profilepic || "avatar.png"}
             className="w-10 h-10 rounded-full object-cover border border-gray-600"
