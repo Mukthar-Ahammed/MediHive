@@ -93,11 +93,17 @@ export const useAuthStore=create((set,get)=>({
         Socket.connect();
         set({ socket: Socket });
     
-        // Listen for all online users
+        
         Socket.on("getOnlineUsers", (userIds) => {
+            
             // Filter friends who are online
-            const onlineFriends = authUser.friends.filter(friendId => userIds.includes(friendId));
+            const friendIds = (authUser.friends || []).map(friend => friend._id?.toString() || friend.toString());
+           
+            const onlineFriends = friendIds.filter(friendId => userIds.includes(friendId));
             set({ onlineUsers: userIds, onlineFriends });
+            console.log("Filtered Online Friends:", onlineFriends);
+            
+            
         });
     },
     disconnectSocket:()=>{
