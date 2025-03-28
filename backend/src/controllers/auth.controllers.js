@@ -127,7 +127,7 @@ export const SearchUser= async (req,res)=>{
     }
 }
 
-//adding friends 
+
 
 export const AddFriends=async(req,res)=>{
     const {userId,friendId}=req.body

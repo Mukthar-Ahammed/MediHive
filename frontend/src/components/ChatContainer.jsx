@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { useChatStore } from '../store/useChatStore'
 import MessageInput from './MessageInput'
 import ChatHead from './ChatHead'
@@ -7,14 +7,23 @@ import { useAuthStore } from '../store/useAuthStore'
 
 
 function ChatContainer() {
-  const { selectedUser, messages=[], getMessage, isMessageLoading } = useChatStore()
+  const { selectedUser, messages=[], getMessage, isMessageLoading ,subscribetoMessages,unsubscribefromMessages} = useChatStore()
   const{authUser}=useAuthStore()
+  const messageendRef=useRef(null)
 
   useEffect(() => {
     if (selectedUser?._id) {
       getMessage(selectedUser._id);
     }
-  }, [selectedUser?._id, getMessage]);
+    subscribetoMessages()
+    return ()=>unsubscribefromMessages()
+  }, [selectedUser?._id, getMessage,subscribetoMessages,unsubscribefromMessages,]);
+
+  useEffect(()=>{
+    if(messageendRef.current){
+      messageendRef.current.scrollIntoView({behaviour:"smooth"})
+    }
+  },[messages])
   
 
   return (
@@ -28,6 +37,7 @@ function ChatContainer() {
         <div
         key={message._id}
         className={`chat ${message.senderId==authUser._id?"chat-end":"chat-start"}   `}
+        ref={messageendRef}
         >
           
         <div >

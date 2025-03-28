@@ -1,4 +1,5 @@
 import cloudinary from "../lib/cloudinary.js"
+import { io, recieveSocketId } from "../lib/socket.js";
 import Message from "../models/message.model.js"
 import User from "../models/user.model.js"
 
@@ -58,8 +59,12 @@ export const sendMessage=async(req,res)=>{
                 image:imageUrl
         })
             await NewMessage.save()
-            //realtime functionalty will be here
-            res.status(201).json(NewMessage)
+    //Realtime
+        const receiverSocId=recieveSocketId(recieverId);
+        if(receiverSocId){
+            io.to(receiverSocId).emit("NewMessage",NewMessage);
+        }
+        res.status(201).json(NewMessage)
 
     } catch (error) {
 

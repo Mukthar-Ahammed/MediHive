@@ -18,7 +18,7 @@ function App() {
   }, [checkAuth]);
 
   console.log({ authUser });
-  console.log("Online Friends:", onlineFriends);
+  
 
   if (isChecking && !authUser)
     return (
