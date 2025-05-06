@@ -7,10 +7,11 @@ function SearchUser() {
   const { unAuthUser, Searchuser, AddFriend } = useChatStore();
 
   const HandleSearch = async (SearchData) => {
-    await Searchuser({ email: SearchData });
-  }
+    if (SearchData.trim()) {
+      await Searchuser({ email: SearchData });
+    }
+  };
 
-  // Trigger search on Enter key
   const Handlekey = (e) => {
     if (e.key === "Enter") {
       HandleSearch(SearchData);
@@ -19,41 +20,37 @@ function SearchUser() {
 
   return (
     <div className="w-full px-4 mt-4">
+
       <div className="relative w-full">
         <input
-          className="w-full h-11 rounded-3xl pl-4 pr-9 text-sm sm:text-base shadow-lg text-black  font-mono  outline-none  border-black/10 border-t-2 "
+          className="w-full h-11 sm:h-12 rounded-full pl-4 pr-12 text-sm sm:text-base shadow-sm font-mono text-black outline-none border border-gray-300  transition-all"
           placeholder="friend@gmail.com"
           value={SearchData}
           type="search"
           onChange={(e) => setSearchData(e.target.value)}
           onKeyDown={Handlekey}
         />
-        
+
         <button
-          className="absolute  top-1/2 right-0 transform -translate-y-1/2 bg-gray-800 shadow-lg w-12 h-12 rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-150"
-          onClick={() => {
-            HandleSearch(SearchData);
-          }}
+          className="absolute top-1/2 right-2 -translate-y-1/2 bg-black hover:bg-black/60 text-white p-2 rounded-full shadow transition duration-200"
+          onClick={() => HandleSearch(SearchData)}
         >
-          <Search className="text-white w-5 h-5" />
+          <Search className="w-5 h-5" />
         </button>
       </div>
 
-      
       {unAuthUser && (
-        <div className="w-full bg-gray-800 text-white rounded-lg shadow-md mt-3 p-3 flex items-center gap-3">
-          
+        <div className="w-full bg-white border border-gray-200 rounded-xl shadow-md mt-4 p-3 flex items-center gap-3 hover:bg-gray-50 transition">
           <img
             src={unAuthUser?.profilepic || "avatar.png"}
-            className="w-10 h-10 rounded-full object-cover border border-gray-600"
+            alt="User"
+            className="w-10 h-10 rounded-full object-cover border border-gray-300"
           />
-          
-          <p className="text-sm sm:text-base font-mono font-semibold flex-grow">
+          <p className="text-sm sm:text-base font-mono font-medium flex-grow text-gray-800 truncate">
             {unAuthUser?.username}
           </p>
-          
           <UserPlus
-            className="text-xl text-teal-500 cursor-pointer hover:scale-110 transition-transform"
+            className="text-black hover:scale-110 transition-transform cursor-pointer"
             onClick={AddFriend}
           />
         </div>
