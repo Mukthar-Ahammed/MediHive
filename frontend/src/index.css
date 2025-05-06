@@ -1,5 +1,5 @@
 @import "tailwindcss";
-@plugin "daisyui";
+/*@plugin "daisyui";*/
 
 /* Hide scrollbar for Chrome, Safari and Edge */
 .no-scrollbar::-webkit-scrollbar {

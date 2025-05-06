@@ -46,12 +46,12 @@ function MessageInput() {
   };
 
   return (
-    <div className="w-full bg-white rounded-3xl sm:max-w-md fixed bottom-5 px-4 right-120">
+    <div className="w-full bg-white rounded-xl px-4 py-2 border-t border-gray-200">
       {imagePreview && (
-        <div className="w-40 h-40 sm:max-w-sm relative flex items-center justify-center">
+        <div className="w-40 h-40 sm:max-w-sm relative flex items-center justify-center mb-3">
           <img
             src={imagePreview}
-            className="w-30 h-30 relative top-4 rounded-lg"
+            className="w-30 h-30 relative top-2 rounded-lg"
             alt="Preview"
           />
           <button
@@ -64,9 +64,9 @@ function MessageInput() {
       )}
 
       <form onSubmit={handleSendMessage}>
-        <div className="relative flex items-center gap-2 w-full">
+        <div className="flex items-center gap-2 w-full">
           <input
-            className="w-full h-12 border-gray-900 border-2 rounded-full px-4 text-gray-900 pr-12"
+            className="w-full h-12 border-gray-300 border rounded-full px-4 text-gray-900 pr-12 focus:outline-none focus:ring-2 focus:ring-teal-500"
             placeholder="Type Something..."
             value={text}
             onChange={(e) => setText(e.target.value)}
@@ -74,7 +74,6 @@ function MessageInput() {
 
           <input
             type="file"
-            id="File-Upload"
             accept="image/*"
             ref={fileinputref}
             onChange={handleImageChange}
@@ -93,7 +92,7 @@ function MessageInput() {
 
           <button
             type="submit"
-            className="flex items-center justify-center rounded-full p-2 text-black"
+            className="flex items-center justify-center rounded-full p-2 text-black disabled:opacity-30"
             disabled={!text.trim() && !imagePreview}
           >
             <Send size={24} />
