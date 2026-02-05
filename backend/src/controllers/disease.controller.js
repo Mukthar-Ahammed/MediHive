@@ -13,7 +13,7 @@ export const predictDisease = async (req, res) => {
 
   try {
     const response = await axios.post('https://openrouter.ai/api/v1/chat/completions', {
-      model: 'openai/gpt-3.5-turbo',
+      model: 'mistralai/mistral-7b-instruct',
       messages: [
         {
           role: 'system',
@@ -35,6 +35,8 @@ export const predictDisease = async (req, res) => {
     res.json({ prediction: reply });
 
   } catch (err) {
+    console.error("Prediction failed:", err.response?.data || err.message || err);
     res.status(500).json({ error: 'Prediction failed', details: err.message });
+    
   }
 };

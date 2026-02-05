@@ -1,24 +1,24 @@
-import {Server} from 'socket.io'
+import { Server } from 'socket.io'
 import http from 'http'
 import express from 'express'
 
-const app=express()
+const app = express()
 
-const server= http.createServer(app)
+const server = http.createServer(app)
 
 //created the socket server over the http server 
 
-const io= new Server(server,{
-    cors:{
-        origin:["http://localhost:5173"],
+const io = new Server(server, {
+    cors: {
+        origin: ["http://localhost:5173", "http://localhost:5174", "https://medihive.onrender.com"],
     }
 });
 
-export function recieveSocketId(userId){
-    return userSocketMap[userId]; 
+export function recieveSocketId(userId) {
+    return userSocketMap[userId];
 }
 
-const userSocketMap={}
+const userSocketMap = {}
 
 io.on("connection", (socket) => {
     console.log("User connected:", socket.id);
@@ -26,7 +26,7 @@ io.on("connection", (socket) => {
     const userId = socket.handshake.query.userId;
     if (userId) userSocketMap[userId] = socket.id;
 
-    io.emit("getOnlineUsers", Object.keys(userSocketMap)); 
+    io.emit("getOnlineUsers", Object.keys(userSocketMap));
     console.log("Current Online friends:", Object.keys(userSocketMap));
 
     socket.on("disconnect", () => {
@@ -36,4 +36,4 @@ io.on("connection", (socket) => {
     });
 });
 
-export {app,io,server}
+export { app, io, server }
